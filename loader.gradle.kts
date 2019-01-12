@@ -6,17 +6,18 @@ import groovy.util.ConfigSlurper
 import org.gradle.api.plugins.ExtraPropertiesExtension
 
 println("+--------------------------------+")
-println("| Juuz's gradle.local.properties |")
+println("| Juuz's gradle-local-properties |")
 println("+--------------------------------+")
 
-val localConfig = File("gradle.local.properties")
+val fileName = "private.properties"
+val localConfig = File(fileName)
 
 if (localConfig.exists()) {
-    println(":gradle.local.properties found, loading...")
+    println(":$fileName found, loading...")
     val config = ConfigSlurper().parse(localConfig.readText())
     config.forEach { key, value ->
         (extensions.getByName("ext") as ExtraPropertiesExtension)[key.toString()] = value
     }
 } else {
-    println(":gradle.local.properties not found, skipping...")
+    println(":$fileName not found, skipping...")
 }
