@@ -1,5 +1,5 @@
 # gradle-local-properties
-Used to load local Gradle properties from a `gradle.local.properties` file.
+Used to load local Gradle properties from a `private.properties` file.
 
 ## Usage
 Groovy:  
