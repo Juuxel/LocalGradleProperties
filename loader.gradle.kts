@@ -1,10 +1,13 @@
-/* This file is a part of the LocalGradleProperties project
+/* This file is a part of the gradle-local-properties project
  * by Juuxel, licensed under the MIT license.
- * Full code and license: https://github.com/Juuxel/LocalGradleProperties
+ * Full code and license: https://github.com/Juuxel/gradle-local-properties
  */
 import groovy.util.ConfigSlurper
+import org.gradle.api.plugins.ExtraPropertiesExtension
 
-println(": Juuz's gradle.local.properties :")
+println("+--------------------------------+")
+println("| Juuz's gradle.local.properties |")
+println("+--------------------------------+")
 
 val localConfig = File("gradle.local.properties")
 
@@ -12,7 +15,7 @@ if (localConfig.exists()) {
     println(":gradle.local.properties found, loading...")
     val config = ConfigSlurper().parse(localConfig.readText())
     config.forEach { key, value ->
-        project.ext[key.toString()] = value
+        (extensions.getByName("ext") as ExtraPropertiesExtension)[key.toString()] = value
     }
 } else {
     println(":gradle.local.properties not found, skipping...")
