@@ -2,8 +2,7 @@
  * by Juuxel, licensed under the MIT license.
  * Full code and license: https://github.com/Juuxel/gradle-local-properties
  */
-import groovy.util.ConfigSlurper
-import org.gradle.api.plugins.ExtraPropertiesExtension
+import java.util.Properties
 
 println("+--------------------------------+")
 println("| Juuz's gradle-local-properties |")
@@ -14,9 +13,10 @@ val localConfig = File(fileName)
 
 if (localConfig.exists()) {
     println(":$fileName found, loading...")
-    val config = ConfigSlurper().parse(localConfig.readText())
+    val config = Properties()
+    config.load(localConfig.inputStream())
     config.forEach { key, value ->
-        (extensions.getByName("ext") as ExtraPropertiesExtension)[key.toString()] = value
+        extra[key.toString()] = value
     }
 } else {
     println(":$fileName not found, skipping...")
